@@ -9,12 +9,17 @@ export const styles = StyleSheet.create({
     padding: 14,
     flex: 1,
   },
+  magicSquareContainer: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+  },
   cell: {
     // flex: 1,
     // flexBasis: 340 / 3,
     // height: 340 / 3,
-    borderColor: 'red',
-    borderWidth: 1,
+    borderColor: '#000',
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
     width: 100,
@@ -38,9 +43,10 @@ export const styles = StyleSheet.create({
     borderColor: '#000',
   },
   magic_square: {
-    // width: 340,
+    width: '90%',
     alignSelf: 'center',
     backgroundColor: 'transparent',
+    justifyContent: 'center',
 
     flexDirection: 'row',
     flexWrap: 'wrap',

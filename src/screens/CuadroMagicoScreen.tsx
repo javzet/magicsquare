@@ -1,30 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Keyboard } from '../components/Keyboard';
 import { MagicSquare } from '../components/MagicSquare';
-import { DataContext } from '../helpers/createContext';
+import { MagicSquareContext } from '../Context/MagicSquareContext';
+import useKeyboard from '../hooks/useKeyboard';
+import useMagicSquare from '../hooks/useMagicSquare';
 import { styles } from '../theme/AppTheme';
 import { MS_Base } from '../types';
 
 export const CuadroMagicoScreen = () => {
-  const [dataTrasnfer, setdataTrasnfer] = useState<any>(null);
-  const [generalMagicSquare, setGeneralMagicSquare] = useState<any>(null);
-  const [originalMagicSquare, setOriginalMagicSquare] = useState<MS_Base>([]);
+  // const [magicSquare, setGeneralMagicSquare] = useState<MS_Base>([]);
+
+  const {
+    createMagicSquare,
+    magicSquare,
+    setMagicSquare,
+    setCurrentCell,
+    currentCellState,
+    originalMagicSquare,
+    setOriginalMagicSquare,
+    evalMagicSquare,
+  } = useMagicSquare();
+
+  useEffect(() => {
+    const ms = createMagicSquare();
+    setMagicSquare(ms.generatedMagicSquare);
+    setOriginalMagicSquare(ms.originalMagicSquare);
+  }, []);
 
   return (
     <View style={styles.container}>
-      <DataContext.Provider
+      <MagicSquareContext
         value={{
-          dataTrasnfer,
-          setdataTrasnfer,
-          generalMagicSquare,
-          setGeneralMagicSquare,
+          magicSquare,
           originalMagicSquare,
+          currentCellState,
+          setMagicSquare,
           setOriginalMagicSquare,
+          setCurrentCell,
+          createMagicSquare,
+          evalMagicSquare,
         }}>
         <MagicSquare />
         <Keyboard />
-      </DataContext.Provider>
+      </MagicSquareContext>
     </View>
   );
 };

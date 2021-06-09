@@ -1,31 +1,40 @@
 import { useContext } from 'react';
 import { DataContext } from '../helpers/createContext';
+import { DataCell, DefaultData } from '../types';
 
 export default function useKeyboard() {
-  const {
-    dataTrasnfer,
-    setdataTrasnfer,
-    generalMagicSquare,
-    setGeneralMagicSquare,
-    originalMagicSquare,
-  } = useContext(DataContext);
+  const context = useContext(DataContext);
 
-  const setNumber = (number: string) => {
-    setdataTrasnfer({ ...dataTrasnfer, keyPressed: number });
-
-    const newGeneralMagicSquare = [...generalMagicSquare];
-    const changeCell = newGeneralMagicSquare.find(
-      (cell: any) =>
-        cell.position.toString() === dataTrasnfer.currentCell.position,
-    );
-    changeCell.value = Number.parseInt(number, 10);
-    setGeneralMagicSquare(newGeneralMagicSquare);
+  const setNumber = (number: string, cellData?: DataCell) => {
+    if (cellData) {
+      if (cellData === undefined || cellData === null) {
+        return;
+      } else {
+        const newMagicSquare = [...context.magicSquare];
+        const cellToChange = newMagicSquare.find(
+          (data: DefaultData) =>
+            data.position.toString() === context.currentCellState.position,
+        );
+        cellToChange.value = Number.parseInt(number, 10);
+        context.setMagicSquare(newMagicSquare);
+      }
+    } else {
+      return;
+    }
   };
 
-  const resetMagicSquare = (value: string) => {
-    console.log(value);
-    setGeneralMagicSquare(originalMagicSquare);
+  const resetMagicSquare = (value?: string) => {
+    context.setMagicSquare(JSON.parse(context.originalMagicSquare));
   };
 
-  return { setNumber, resetMagicSquare };
+  const evalMS = () => {
+    const result = context.evalMagicSquare(context.magicSquare);
+    console.log(result);
+    if (result !== false) {
+      console.log('listo');
+      resetMagicSquare();
+    }
+  };
+
+  return { setNumber, resetMagicSquare, evalMS };
 }
