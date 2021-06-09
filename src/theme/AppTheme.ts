@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   background: {
@@ -13,10 +13,12 @@ export const styles = StyleSheet.create({
     // flex: 1,
     // flexBasis: 340 / 3,
     // height: 340 / 3,
+    borderColor: 'red',
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 340 / 3,
-    height: 340 / 3,
+    width: 100,
+    height: 100,
   },
   cellText: {
     // textAlign: 'center',
@@ -40,8 +42,8 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'transparent',
 
-    borderColor: '#000',
-    borderWidth: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   row: {
     flexDirection: 'row',
@@ -51,14 +53,13 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
   },
   keyboard: {
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   keyboarbutton: {
-    width: 80,
     height: 80,
-    backgroundColor: '#008bf8',
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 2,
